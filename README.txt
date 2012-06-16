@@ -2,8 +2,8 @@
 ##
 ##      Projekt:   X-ARF
 ##      Datei:     genxarf.class.php
-##      Version:   1.1
-##      Datum:     05.05.2010
+##      Version:   1.2
+##      Datum:     12.12.2011
 ##      Copyright: Martin Schiftan
 ##      license:   http://opensource.org/licenses/gpl-license.php GNU Public License
 ##
@@ -40,6 +40,4 @@ den Header, den Body und den Betreff generieren lassen.....
 
 Bei Fragen, einfach mailen :-)
 
-root@blocklist.de
-
-
+support@blocklist.de
