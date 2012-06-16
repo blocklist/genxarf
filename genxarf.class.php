@@ -4,7 +4,7 @@
 ##      Projekt:   X-ARF
 ##      Datei:     genxarf.class.php
 ##      Version:   1.2
-##      Datum:     08.05.2010
+##      Datum:     12.12.2011
 ##      Copyright: Martin Schiftan
 ##      license:   http://opensource.org/licenses/gpl-license.php GNU Public License
 ##
@@ -169,7 +169,7 @@ class xarf
         $body  = '--Abuse-'.$this->boundary.'
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=utf8;
+Content-Type: text/plain; charset=utf-8;
 
 '.$this->replacetext($this->config['text']).'
 
@@ -193,17 +193,17 @@ Content-Type: text/plain; charset=utf8;
     public function part2()
       {
         if((!isset($this->logs)) || (empty($this->logs)))
-	  {
-	    $this->logfile = 'No';
-	  }
-	else
-	  {
-	    $this->logfile = 'text/plain';
-	  }
+          {
+            $this->logfile = 'No';
+          }
+        else
+          {
+            $this->logfile = 'text/plain';
+          }
         $body  = '--Abuse-'.$this->boundary.'
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=utf8; name="report.txt";
+Content-Type: text/plain; charset=utf-8; name="report.txt";
 
 ---
 Reported-From: '.$this->config['sender'].'
@@ -241,7 +241,7 @@ Attachment: '.$this->logfile.'
         $body  = '--Abuse-'.$this->boundary.'
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=utf8; name="logfile.log";
+Content-Type: text/plain; charset=utf-8; name="logfile.log";
 
 '.$this->logs.'
 
@@ -356,8 +356,8 @@ Content-Type: text/plain; charset=utf8; name="logfile.log";
           {
             $pass_word .= substr($pool,(rand()%(strlen ($pool))), 1);
           }
+                $this->rid = $pass_word;
         return($this->rid);
       }
   }
 
-?>
