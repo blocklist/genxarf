@@ -3,20 +3,20 @@
 ##
 ##      Projekt:   X-ARF
 ##      Datei:     example.php
-##      Version:   1.1
-##      Datum:     05.05.2010
+##      Version:   1.2
+##      Datum:     12.12.2011
 ##      Copyright: Martin Schiftan
 ##      license:   http://opensource.org/licenses/gpl-license.php GNU Public License
 ##
 #######################################################
 
-require_once('genxarf.class.php');
+require_once('./genxarf.class.php');
 
 
-$ip     = '89.149.25.4.4.';
+$ip     = '89.149.xxx.xxx';
 $host   = 'geht auch mit gethostbyaddr($ip)';
 $datum  = time();       # oder date('D, d M Y H:i:s O');
-$dienst = 'ssh';
+$dienst = 'ssh';        # wie im Array $config['dienste']
 $logs   = 'logfiles/Spam-Mail/Header....';
 // Ohne $class->logs wird das 3 Attachment nicht generiert und Attachment in 2. auf No gestellt.
 
@@ -37,6 +37,6 @@ echo "\n\n";
 echo $body;
 echo "\n\n";
 
-# mail($to, $subject, $body, $header);
+# hier report senden:
+mail($to, $subject, $body, $header);
 
-?>
