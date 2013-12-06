@@ -64,7 +64,9 @@ class xarf
         $this->domain = $domain[1];
 
         if($return !== 0)
-          $this->setfehler($return);
+          {
+            $this->setfehler($return);
+          }
         return(1);
       }
 
@@ -108,7 +110,13 @@ class xarf
         $header .= "Content-Transfer-Encoding: 7bit\n";
         $header .= "Subject: ".$this->replacetext($this->config['subject'])."\n";
         $header .= "Content-Type: multipart/mixed; \n\t boundary=\"Abuse-".$this->boundary."\";\n";
-        $header .= "X-Arf: yes\n";
+                $this->xheader = 'X-XARF:';
+                if($this->config['xarfversion'] == '0.1')
+                  {
+                    $this->xarfreporttyp = 'yes';
+                        $this->xheader = 'X-ARF:';
+                  }
+        $header .= $this->xheader.' '.$this->xarfreporttyp."\n";
         $this->header = $header;
 
         return($header);
@@ -143,7 +151,7 @@ class xarf
             $part[3]       = $this->part3();
           }
         $boundary       = $this->boundary;
-        $this->reportid = time().$this->genpwd().'@'.$this->domain;
+        $this->reportid = time().$this->genrid().'@'.$this->domain;
         $part[1]        = $this->part1();
         $part[2]        = $this->part2();
         // $part[3] wird vorher schon generiert (ob Logs da sind oder nicht...)
@@ -210,7 +218,7 @@ Reported-From: '.$this->config['sender'].'
 Category: '.$this->config['dienste'][$this->dienst]['category'].'
 Report-Type: '.$this->config['dienste'][$this->dienst]['reporttype'].'
 Service: '.$this->dienst.'
-Version: 0.1
+Version: '.$this->config['xarfversion'].'
 User-Agent: '.$this->config['useragent'].'
 Date: '.$this->getdatum().'
 Source-Type: '.$this->config['dienste'][$this->dienst]['sourcetype'].'
@@ -341,22 +349,22 @@ Content-Type: text/plain; charset=utf-8; name="logfile.log";
 
 
     /**
-      * @name: genpwd()
+      * @name: genrid()
       * generiert nen ZufallsString
       *
       * @param
-      * @return string[pwd]
+      * @return string[rid]
     */
-    private function genpwd()
+    private function genrid()
       {
-        $pass_word = '';
+        $pd = '';
         $pool = "0123456789";
         srand ((double)microtime()*1000000);
-        for($index = 0; $index < 4; $index++)
+        for($index = 0; $index < 8; $index++)
           {
-            $pass_word .= substr($pool,(rand()%(strlen ($pool))), 1);
+            $pd .= substr($pool,(rand()%(strlen ($pool))), 1);
           }
-                $this->rid = $pass_word;
+        $this->rid = $pd;
         return($this->rid);
       }
   }
