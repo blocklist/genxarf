@@ -3,7 +3,7 @@
 ##
 ##      Projekt:   X-ARF
 ##      Datei:     config.inc.php
-##      Version:   1.1
+##      Version:   1.2
 ##      Datum:     05.05.2010
 ##      Copyright: Martin Schiftan
 ##      license:   http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -22,6 +22,16 @@ $config['sendername']   = 'Abuse-Team';
 ####
 $config['useragent']    = 'V0.0.1 domain.tld';
 
+
+####
+##  Default-Typ of X-ARF Version 0.1 = 'yes'. Version 0.2 = Plain|Secure|Bulk. new in Version 0.2
+####
+$config['xarfreporttyp'] = 'yes';
+
+###
+##   X-ARF Version (currently V0.2) (When Version is 0.1, xarfreporttyp will be set to yes, else "$config[xarfreporttyp]", whenn 0.2)
+###
+$config['xarfversion'] = '0.2';
 
 ####
 ##  Signatur/Footer fuer die Complaints
@@ -61,7 +71,7 @@ $config['replacewords'] = array(
                                '{IP}' => 'ip',
                                '{HOST}' => 'host',
                                '{DATUM}' => 'datum',
-			       '{DIENST}' => 'dienst',
+                               '{DIENST}' => 'dienst',
                                );
 
 
@@ -71,47 +81,125 @@ $config['replacewords'] = array(
 ##  Die Namen nur klein schreiben!
 ####
 $config['dienste'] = array(
-                           'ssh' => array(
-                                    'name' => 'ssh',
-                                    'port' => '22',
-                                    'category' => 'abuse',
-                                    'reporttype' => 'login-attack',
-                                    'sourcetype' => 'ip-address',
-                                    'schema' => 'http://www.x-arf.org/schema/abuse_login-attack_0.1.1.json'
-                                   ),
-                            'postfix' => array(
-                                         'name' => 'mail',
-                                         'port' => '25',
-                                         'category' => 'info',
-                                         'reporttype' => 'harvesting',
-                                         'sourcetype' => 'ip-address',
-                                         'schema' => 'http://www.x-arf.org/schema/info_0.1.0.json'
-                                        ),
-                            'courierpop3' => array(
-                                             'name' => 'courierpop3',
-                                             'port' => '110',
+                                       'ssh' => array(
+                                             'name' => 'ssh',
+                                             'port' => '22',
                                              'category' => 'abuse',
                                              'reporttype' => 'login-attack',
-                                             'sourcetype' => 'ip-address',
-                                             'schema' => 'http://www.x-arf.org/schema/abuse_login-attack_0.1.1.json'
-                                            ),
-                            'courierimap' => array(
-                                             'name' => 'courierimap',
-                                             'port' => '143',
-                                             'category' => 'abuse',
-                                             'reporttype' => 'login-attack',
-                                             'sourcetype' => 'ip-address',
-                                             'schema' => 'http://www.x-arf.org/schema/abuse_login-attack_0.1.1.json'
-                                            ),
-                            'apache' => array(
-                                        'name' => 'apache-sans attack',
-                                        'port' => '80',
-                                        'category' => 'abuse',
-                                        'reporttype' => 'hack-attack',
-                                        'sourcetype' => 'ip-address',
-                                        'schema' => 'http://www.x-arf.org/schema/abuse_hack-attack_0.1.0.json'
-                                       )
-                            );
+                                             'schema' => 'http://www.x-arf.org/schema/abuse_login-attack_0.1.2.json'
+                                             ),
+                                       'mail' => array(
+                                               'name' => 'mail',
+                                               'port' => '25',
+                                               'category' => 'info',
+                                               'reporttype' => 'harvesting',
+                                               'schema' => 'http://www.blocklist.de/downloads/schema/info_0.1.1.json'
+                                              ),
+                                       'amavis' => array(
+                                               'name' => 'amavis',
+                                               'port' => '25',
+                                               'category' => 'info',
+                                               'reporttype' => 'harvesting',
+                                               'schema' => 'http://www.blocklist.de/downloads/schema/info_0.1.1.json'
+                                              ),
+                                       'pop3' => array(
+                                                'name' => 'pop3',
+                                                'port' => '110',
+                                                'category' => 'abuse',
+                                                'reporttype' => 'login-attack',
+                                                'schema' => 'http://www.x-arf.org/schema/abuse_login-attack_0.1.2.json'
+                                               ),
+                                       'imap' => array(
+                                                'name' => 'imap',
+                                                'port' => '143',
+                                                'category' => 'abuse',
+                                                'reporttype' => 'login-attack',
+                                                'schema' => 'http://www.x-arf.org/schema/abuse_login-attack_0.1.2.json'
+                                               ),
+                                       'sasl' => array(
+                                                'name' => 'sasl',
+                                                'port' => '25',
+                                                'category' => 'abuse',
+                                                'reporttype' => 'login-attack',
+                                                'schema' => 'http://www.x-arf.org/schema/abuse_login-attack_0.1.2.json'
+                                               ),
+                                       'w00tw00t' => array(
+                                                'name' => 'apache-sans attack',
+                                                'port' => '80',
+                                                'category' => 'abuse',
+                                                'reporttype' => 'login-attack',
+                                                'schema' => 'http://www.x-arf.org/schema/abuse_login-attack_0.1.2.json'
+                                               ),
+                                       'badbot' => array(
+                                                'name' => 'badbot',
+                                                'port' => '80',
+                                                'category' => 'info',
+                                                'reporttype' => 'info',
+                                                'schema' => 'http://www.blocklist.de/downloads/schema/info_0.1.1.json'
+                                               ),
+                                       'php-url-fopen' => array(
+                                                'name' => 'apache rfi attack',
+                                                'port' => '80',
+                                                'category' => 'abuse',
+                                                'reporttype' => 'login-attack',
+                                                'schema' => 'http://www.x-arf.org/schema/abuse_login-attack_0.1.2.json'
+                                               ),
+                                       'webmin' => array(
+                                                'name' => 'webmin bruteforce',
+                                                'port' => '80',
+                                                'category' => 'abuse',
+                                                'reporttype' => 'login-attack',
+                                                'schema' => 'http://www.x-arf.org/schema/abuse_login-attack_0.1.2.json'
+                                               ),
+                                       'rfi-attack' => array(
+                                                'name' => 'apache rfi attack',
+                                                'port' => '80',
+                                                'category' => 'abuse',
+                                                'reporttype' => 'login-attack',
+                                                'schema' => 'http://www.x-arf.org/schema/abuse_login-attack_0.1.2.json'
+                                               ),
+                                       'apacheddos' => array(
+                                                'name' => 'Apache',
+                                                'port' => '80',
+                                                'category' => 'abuse',
+                                                'reporttype' => 'login-attack',
+                                                'schema' => 'http://www.blocklist.de/downloads/schema/info_0.1.1.json'
+                                               ),
+                                       'portflood' => array(
+                                                'name' => 'Portflood',
+                                                'port' => '80',
+                                                'category' => 'info',
+                                                'reporttype' => 'info',
+                                                'schema' => 'http://www.blocklist.de/downloads/schema/info_0.1.1.json'
+                                               ),
+                                       'ircbot' => array(
+                                                'name' => 'C&C Bot',
+                                                'port' => '6667',
+                                                'category' => 'abuse',
+                                                'reporttype' => 'ircbot',
+                                                'schema' => 'http://www.blocklist.de/downloads/schema/info_0.1.1.json'
+                                               ),
+                                       'regbot' => array(
+                                                'name' => 'regBot',
+                                                'port' => '80',
+                                                'category' => 'abuse',
+                                                'reporttype' => 'reg-bot',
+                                                'schema' => 'http://www.blocklist.de/downloads/schema/info_0.1.1.json'
+                                               ),
+                                       'ftp' => array(
+                                                'name' => 'ftp',
+                                                'port' => '21',
+                                                'category' => 'abuse',
+                                                'reporttype' => 'login-attack',
+                                                'schema' => 'http://www.x-arf.org/schema/abuse_login-attack_0.1.2.json'
+                                               ),
+                                       'asterisk' => array(
+                                                'name' => 'asterisk',
+                                                'port' => '5060',
+                                                'category' => 'info',
+                                                'reporttype' => 'login-attack',
+                                                'schema' => 'http://www.blocklist.de/downloads/schema/info_0.1.1.json'
+                                               )
+                          );
 
 
-?>
