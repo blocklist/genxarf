@@ -27,11 +27,13 @@ $xarf->host   = $host;
 $xarf->datum  = $datum;
 $xarf->dienst = $dienst;
 $xarf->logs   = $logs;
+$xarf->xarfreporttyp = $config['xarfreporttyp']; # wird auf YES gestellt, wenn nicht V0.2
 
 $header  = $xarf->genheader();
 $body    = $xarf->genbody();
 $subject = $xarf->getsubject();
 
+# braucht man natuerlich nicht, ist nur zum zeigen/debug :-)
 echo $header;
 echo "\n\n";
 echo $body;
@@ -39,4 +41,3 @@ echo "\n\n";
 
 # hier report senden:
 mail($to, $subject, $body, $header);
-
