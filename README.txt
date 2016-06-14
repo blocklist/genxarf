@@ -40,4 +40,4 @@ den Header, den Body und den Betreff generieren lassen.....
 
 Bei Fragen, einfach mailen :-)
 
-support@blocklist.de
+root@blocklist.de
