@@ -3,8 +3,8 @@
 ##
 ##      Projekt:   X-ARF
 ##      Datei:     genxarf.class.php
-##      Version:   1.2
-##      Datum:     12.12.2011
+##      Version:   1.3
+##      Datum:     28.09.2014
 ##      Copyright: Martin Schiftan
 ##      license:   http://opensource.org/licenses/gpl-license.php GNU Public License
 ##
@@ -213,7 +213,6 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset=utf-8; name="report.txt";
 
----
 Reported-From: '.$this->config['sender'].'
 Category: '.$this->config['dienste'][$this->dienst]['category'].'
 Report-Type: '.$this->config['dienste'][$this->dienst]['reporttype'].'
@@ -368,4 +367,3 @@ Content-Type: text/plain; charset=utf-8; name="logfile.log";
         return($this->rid);
       }
   }
-
